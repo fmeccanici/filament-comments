@@ -10,7 +10,6 @@ class FilamentCommentQueryBuilder extends Builder
     {
         return $this->whereDoesntHave('reads', function (Builder $query) use ($userId) {
             $query->where('user_id', $userId);
-        })
-            ->where('user_id', '!=', $userId);
+        })->where('user_id', '!=', $userId);
     }
 }
