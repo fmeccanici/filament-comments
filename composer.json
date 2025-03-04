@@ -23,11 +23,14 @@
         "php": "^8.1",
         "filament/filament": "^3.0",
         "spatie/laravel-package-tools": "^1.15.0",
-        "illuminate/contracts": "^10.0 | ^11.0"
+        "illuminate/contracts": "^10.0 | ^11.0",
+        "spatie/laravel-data": "^4.13"
     },
     "autoload": {
         "psr-4": {
-            "Parallax\\FilamentComments\\": "src/"
+            "Parallax\\FilamentComments\\": "src/",
+            "Parallax\\FilamentComments\\Tests\\": "tests/",
+            "Parallax\\FilamentComments\\Database\\Factories\\": "database/factories/"
         }
     },
     "extra": {
@@ -38,5 +41,29 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "require-dev": {
+        "orchestra/testbench": "^9.11"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Workbench\\App\\": "workbench/app/",
+            "Workbench\\Database\\Factories\\": "workbench/database/factories/",
+            "Workbench\\Database\\Seeders\\": "workbench/database/seeders/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "@clear",
+            "@prepare"
+        ],
+        "clear": "@php vendor/bin/testbench package:purge-skeleton --ansi",
+        "prepare": "@php vendor/bin/testbench package:discover --ansi",
+        "build": "@php vendor/bin/testbench workbench:build --ansi",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "@build",
+            "@php vendor/bin/testbench serve --ansi"
+        ]
+    }
 }

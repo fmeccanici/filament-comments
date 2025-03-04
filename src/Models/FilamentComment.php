@@ -3,17 +3,20 @@
 namespace Parallax\FilamentComments\Models;
 
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\MassPrunable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
+use Parallax\FilamentComments\Database\Factories\FilamentCommentFactory;
 
 class FilamentComment extends Model
 {
     use MassPrunable;
     use SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'user_id',
@@ -75,5 +78,10 @@ class FilamentComment extends Model
         }
 
         return $this->reads()->where('user_id', $userId)->exists();
+    }
+
+    protected static function newFactory(): FilamentCommentFactory
+    {
+        return FilamentCommentFactory::new();
     }
 }
