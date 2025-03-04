@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Config;
 use Parallax\FilamentComments\Database\Factories\FilamentCommentFactory;
+use Parallax\FilamentComments\QueryBuilders\FilamentCommentQueryBuilder;
 
 class FilamentComment extends Model
 {
@@ -71,17 +72,18 @@ class FilamentComment extends Model
         return $this->hasMany(FilamentCommentRead::class, 'comment_id');
     }
 
-    public function isReadByUser(?int $userId = null): bool
+    public function isReadByUser(int $userId): bool
     {
-        if (!$userId) {
-            $userId = auth()->id();
-        }
-
         return $this->reads()->where('user_id', $userId)->exists();
     }
 
     protected static function newFactory(): FilamentCommentFactory
     {
         return FilamentCommentFactory::new();
+    }
+
+    public function newEloquentBuilder($query): FilamentCommentQueryBuilder
+    {
+        return new FilamentCommentQueryBuilder($query);
     }
 }
