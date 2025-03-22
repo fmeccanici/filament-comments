@@ -77,6 +77,11 @@ class FilamentComment extends Model
         return $this->reads()->where('user_id', $userId)->exists();
     }
 
+    public function attachments(): HasMany
+    {
+        return $this->hasMany(FilamentCommentAttachment::class);
+    }
+
     protected static function newFactory(): FilamentCommentFactory
     {
         return FilamentCommentFactory::new();

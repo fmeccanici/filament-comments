@@ -82,6 +82,29 @@
                             @endif
                         </div>
 
+                        @if($comment->attachments->count() > 0)
+                            <div class="mt-2 space-y-2">
+                                @foreach($comment->attachments as $attachment)
+                                    <div class="flex items-center gap-2">
+                                        <x-filament::icon
+                                            icon="heroicon-o-paper-clip"
+                                            class="h-4 w-4 text-gray-400"
+                                        />
+                                        <a
+                                            href="{{ Storage::url($attachment->path) }}"
+                                            target="_blank"
+                                            class="text-sm text-primary-600 hover:text-primary-500"
+                                        >
+                                            {{ $attachment->name }}
+                                        </a>
+                                        <span class="text-xs text-gray-400">
+                                            ({{ $attachment->size }})
+                                        </span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+
                         @if($comment->replies->count() > 0)
                             <div class="mt-4 space-y-4 pl-6 border-l-2 border-gray-100 dark:border-gray-700">
                                 @foreach($comment->replies as $reply)
@@ -127,6 +150,29 @@
                                                     {{ Str::of($reply->comment)->toHtmlString() }}
                                                 @endif
                                             </div>
+
+                                            @if($reply->attachments->count() > 0)
+                                                <div class="mt-2 space-y-2">
+                                                    @foreach($reply->attachments as $attachment)
+                                                        <div class="flex items-center gap-2">
+                                                            <x-filament::icon
+                                                                icon="heroicon-o-paper-clip"
+                                                                class="h-4 w-4 text-gray-400"
+                                                            />
+                                                            <a
+                                                                href="{{ Storage::url($attachment->path) }}"
+                                                                target="_blank"
+                                                                class="text-sm text-primary-600 hover:text-primary-500"
+                                                            >
+                                                                {{ $attachment->name }}
+                                                            </a>
+                                                            <span class="text-xs text-gray-400">
+                                                                ({{ number_format($attachment->size / 1024, 2) }} KB)
+                                                            </span>
+                                                        </div>
+                                                    @endforeach
+                                                </div>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach

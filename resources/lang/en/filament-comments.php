@@ -22,4 +22,7 @@ return [
         'new_comment' => 'New comment on :model #:id',
         'view_record' => 'View Record',
     ],
+    'attachments' => [
+        'label' => 'Add optional attachment',
+    ],
 ];
