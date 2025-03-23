@@ -14,7 +14,6 @@ use Livewire\WithFileUploads;
 use Parallax\FilamentComments\Events\CommentCreated;
 use Parallax\FilamentComments\Models\FilamentComment;
 use Parallax\FilamentComments\Models\FilamentCommentRead;
-use Illuminate\Support\Facades\Storage;
 
 class CommentsComponent extends Component implements HasForms
 {
@@ -156,8 +155,6 @@ class CommentsComponent extends Component implements HasForms
                 $comment->attachments()->create([
                     'path' => $attachment,
                     'name' => basename($attachment),
-                    'mime_type' => Storage::mimeType($attachment),
-                    'size' => 0,
                 ]);
             }
         }
