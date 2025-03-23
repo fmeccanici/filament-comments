@@ -97,9 +97,6 @@
                                         >
                                             {{ $attachment->name }}
                                         </a>
-                                        <span class="text-xs text-gray-400">
-                                            ({{ $attachment->size }})
-                                        </span>
                                     </div>
                                 @endforeach
                             </div>
