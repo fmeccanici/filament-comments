@@ -163,9 +163,6 @@
                                                             >
                                                                 {{ $attachment->name }}
                                                             </a>
-                                                            <span class="text-xs text-gray-400">
-                                                                ({{ number_format($attachment->size / 1024, 2) }} KB)
-                                                            </span>
                                                         </div>
                                                     @endforeach
                                                 </div>
